@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>meliss.take</title>
+  <style>
+    body { font-family: Arial; text-align: center; background: #f5f5f5; }
+    h1 { margin-top: 40px; }
+    .album { margin: 30px; padding: 20px; background: white; display: inline-block; border-radius: 10px; }
+    img { width: 200px; margin: 10px; border-radius: 8px; }
+    button { padding: 8px 15px; }
+  </style>
+</head>
+<body>
+
+<h1>meliss.take</h1>
+
+<div class="album">
+  <h2>Vacation</h2>
+  <input type="password" id="pass1" placeholder="Password">
+  <button onclick="openAlbum('album1','1234','pass1')">Open</button>
+  <div id="album1"></div>
+</div>
+
+<script>
+function openAlbum(albumId, correctPass, inputId) {
+  const entered = document.getElementById(inputId).value;
+  if (entered === correctPass) {
+    document.getElementById(albumId).innerHTML =
+      '<img src="https://via.placeholder.com/200">' +
+      '<img src="https://via.placeholder.com/200">';
+  } else {
+    alert("Wrong password!");
+  }
+}
+</script>
+
+</body>
+</html>
