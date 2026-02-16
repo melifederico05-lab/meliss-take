@@ -26,8 +26,15 @@ function openAlbum(albumId, correctPass, inputId) {
   const entered = document.getElementById(inputId).value;
   if (entered === correctPass) {
     document.getElementById(albumId).innerHTML =
-      '<img src="https://via.placeholder.com/200">' +
-      '<img src="https://via.placeholder.com/200">';
+     document.getElementById(albumId).innerHTML =
+  '<img src="DSC01248.JPG">' +
+  '<img src="DSC01249.JPG">' +
+  '<img src="DSC01250.JPG">' +
+  '<img src="DSC01251.JPG">' +
+  '<img src="DSC01252.JPG">' +
+  '<img src="DSC01253.JPG">' +
+  '<img src="DSC01254.JPG">' +
+  '<img src="DSC01255.JPG">';
   } else {
     alert("Wrong password!");
   }
