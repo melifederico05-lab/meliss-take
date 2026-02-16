@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>meliss.take</title>
-  <!-- Google Font: Oswald -->
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.1/simple-lightbox.min.css" rel="stylesheet">
   <style>
@@ -25,12 +24,10 @@
       border-radius: 15px; 
       box-shadow: 0 4px 10px rgba(255,255,255,0.3);
       transition: transform 0.2s; 
+      background-color: #222; /* default fallback */
     }
     .album:hover { transform: scale(1.05); }
-    .album h2 {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
+    .album h2 { font-size: 2em; margin-bottom: 10px; color: white; }
     img { 
       width: 200px; 
       margin: 10px; 
@@ -46,27 +43,24 @@
       cursor: pointer; 
       font-weight: bold;
       margin-top: 5px;
+      color: white;
     }
     input { 
       padding: 8px; 
       border-radius: 10px; 
       border: 1px solid #FFFFFF; 
       margin-right: 5px;
+      background: #000;
+      color: white;
     }
 
-    /* Album Colors */
-    #desprimados h2 { color: #9CAF88; }   /* Sage Green */
-    #desprimados button { background: #9CAF88; color: white; }
-    #familia h2 { color: #FFD700; }       /* Yellow */
-    #familia button { background: #FFD700; color: black; }
-    #asu h2 { color: #FFC0CB; }           /* Pink */
-    #asu button { background: #FFC0CB; color: black; }
-    #manada h2 { color: #800080; }        /* Purple */
-    #manada button { background: #800080; color: white; }
-    #birthdays h2 { color: #89CFF0; }     /* Baby Blue */
-    #birthdays button { background: #89CFF0; color: black; }
-    #que-oso h2 { color: #FF6961; }       /* Light Red */
-    #que-oso button { background: #FF6961; color: white; }
+    /* Album background colors */
+    #desprimados { background-color: #9CAF88; }   /* Sage Green */
+    #familia { background-color: #FFD700; }       /* Yellow */
+    #asu { background-color: #FFC0CB; }           /* Pink */
+    #manada { background-color: #800080; }        /* Purple */
+    #birthdays { background-color: #89CFF0; }     /* Baby Blue */
+    #que-oso { background-color: #FF6961; }       /* Light Red */
   </style>
 </head>
 <body>
@@ -98,4 +92,51 @@
 <div class="album" id="manada">
   <h2>Manada</h2>
   <input type="password" id="pass4" placeholder="Password">
-  <button onclick="openAlbum('manada','buzz',
+  <button onclick="openAlbum('manada','buzz','pass4')">Open</button>
+  <div id="manada-photos"></div>
+</div>
+
+<div class="album" id="birthdays">
+  <h2>Birthdays</h2>
+  <input type="password" id="pass5" placeholder="Password">
+  <button onclick="openAlbum('birthdays','0205','pass5')">Open</button>
+  <div id="birthdays-photos"></div>
+</div>
+
+<div class="album" id="que-oso">
+  <h2>Que Oso</h2>
+  <input type="password" id="pass6" placeholder="Password">
+  <button onclick="openAlbum('que-oso','CASA','pass6')">Open</button>
+  <div id="que-oso-photos"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.1/simple-lightbox.min.js"></script>
+<script>
+function openAlbum(albumId, correctPass, inputId) {
+  const entered = document.getElementById(inputId).value;
+  if (entered !== correctPass) { alert("Wrong password!"); return; }
+
+  fetch(`${albumId}/`) 
+    .then(response => response.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const links = Array.from(doc.querySelectorAll('a'))
+        .map(a => a.getAttribute('href'))
+        .filter(h => /\.(jpg|jpeg|png|gif)$/i.test(h));
+
+      let content = '';
+      links.forEach((img, i) => {
+        content += `<a href="${albumId}/${img}"><img src="${albumId}/${img}" alt="${albumId} ${i+1}"></a>`;
+      });
+
+      document.getElementById(`${albumId}-photos`).innerHTML = content;
+
+      new SimpleLightbox(`a[href^="${albumId}/"]`, {});
+    })
+    .catch(err => console.error('Error loading album:', err));
+}
+</script>
+
+</body>
+</html>
