@@ -2,39 +2,134 @@
 <html>
 <head>
   <title>meliss.take</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.1/simple-lightbox.min.css" rel="stylesheet">
   <style>
-    body { font-family: Arial; text-align: center; background: #f5f5f5; }
-    h1 { margin-top: 40px; }
-    .album { margin: 30px; padding: 20px; background: white; display: inline-block; border-radius: 10px; }
-    img { width: 200px; margin: 10px; border-radius: 8px; }
-    button { padding: 8px 15px; }
+    body { 
+      font-family: 'Comic Sans MS', cursive, sans-serif; 
+      text-align: center; 
+      background: #FFF0F5; 
+      margin: 0; 
+      padding: 0;
+    }
+    h1 { 
+      margin-top: 40px; 
+      color: #FF69B4; 
+    }
+    .album { 
+      margin: 20px auto; 
+      padding: 20px; 
+      background: #FFE4E1; 
+      display: inline-block; 
+      border-radius: 20px; 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s; 
+    }
+    .album:hover { transform: scale(1.05); }
+    img { 
+      width: 200px; 
+      margin: 10px; 
+      border-radius: 15px; 
+      cursor: pointer;
+      transition: transform 0.2s; 
+    }
+    img:hover { transform: scale(1.05); }
+    button { 
+      padding: 10px 20px; 
+      background: #FFB6C1; 
+      border: none; 
+      border-radius: 10px; 
+      cursor: pointer; 
+      font-weight: bold;
+      transition: background 0.2s; 
+    }
+    button:hover { background: #FF69B4; color: white; }
+    input { 
+      padding: 8px; 
+      border-radius: 10px; 
+      border: 1px solid #FFB6C1; 
+      margin-right: 5px;
+    }
   </style>
 </head>
 <body>
 
 <h1>meliss.take</h1>
 
+<!-- Album Sections -->
 <div class="album">
-  <h2>Vacation</h2>
+  <h2>Manada</h2>
   <input type="password" id="pass1" placeholder="Password">
   <button onclick="openAlbum('album1','1234','pass1')">Open</button>
   <div id="album1"></div>
 </div>
 
+<div class="album">
+  <h2>Familia</h2>
+  <input type="password" id="pass2" placeholder="Password">
+  <button onclick="openAlbum('album2','2345','pass2')">Open</button>
+  <div id="album2"></div>
+</div>
+
+<div class="album">
+  <h2>ASU</h2>
+  <input type="password" id="pass3" placeholder="Password">
+  <button onclick="openAlbum('album3','3456','pass3')">Open</button>
+  <div id="album3"></div>
+</div>
+
+<div class="album">
+  <h2>Birthdays</h2>
+  <input type="password" id="pass4" placeholder="Password">
+  <button onclick="openAlbum('album4','5678','pass4')">Open</button>
+  <div id="album4"></div>
+</div>
+
+<div class="album">
+  <h2>Que Oso</h2>
+  <input type="password" id="pass5" placeholder="Password">
+  <button onclick="openAlbum('album5','6789','pass5')">Open</button>
+  <div id="album5"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.1/simple-lightbox.min.js"></script>
 <script>
 function openAlbum(albumId, correctPass, inputId) {
   const entered = document.getElementById(inputId).value;
   if (entered === correctPass) {
-    document.getElementById(albumId).innerHTML =
-     document.getElementById(albumId).innerHTML =
-  '<img src="DSC01248.JPG">' +
-  '<img src="DSC01249.JPG">' +
-  '<img src="DSC01250.JPG">' +
-  '<img src="DSC01251.JPG">' +
-  '<img src="DSC01252.JPG">' +
-  '<img src="DSC01253.JPG">' +
-  '<img src="DSC01254.JPG">' +
-  '<img src="DSC01255.JPG">';
+
+    let content = '';
+
+    // -----------------------------
+    // Add your photos for each album
+    // -----------------------------
+    if(albumId === 'album1'){ // Manada
+      content += '<a href="DSC01248.JPG"><img src="DSC01248.JPG" alt="Manada 1"></a>';
+      content += '<a href="DSC01249.JPG"><img src="DSC01249.JPG" alt="Manada 2"></a>';
+      content += '<a href="DSC01250.JPG"><img src="DSC01250.JPG" alt="Manada 3"></a>';
+      content += '<a href="DSC01251.JPG"><img src="DSC01251.JPG" alt="Manada 4"></a>';
+      content += '<a href="DSC01252.JPG"><img src="DSC01252.JPG" alt="Manada 5"></a>';
+      content += '<a href="DSC01253.JPG"><img src="DSC01253.JPG" alt="Manada 6"></a>';
+      content += '<a href="DSC01254.JPG"><img src="DSC01254.JPG" alt="Manada 7"></a>';
+      content += '<a href="DSC01255.JPG"><img src="DSC01255.JPG" alt="Manada 8"></a>';
+    }
+    else if(albumId === 'album2'){ // Familia
+      content += '<a href="familia1.jpg"><img src="familia1.jpg" alt="Familia 1"></a>';
+      content += '<a href="familia2.jpg"><img src="familia2.jpg" alt="Familia 2"></a>';
+    }
+    else if(albumId === 'album3'){ // ASU
+      content += '<a href="asu1.jpg"><img src="asu1.jpg" alt="ASU 1"></a>';
+    }
+    else if(albumId === 'album4'){ // Birthdays
+      content += '<a href="birthday1.jpg"><img src="birthday1.jpg" alt="Birthday 1"></a>';
+    }
+    else if(albumId === 'album5'){ // Que Oso
+      content += '<a href="oso1.jpg"><img src="oso1.jpg" alt="Que Oso 1"></a>';
+    }
+
+    document.getElementById(albumId).innerHTML = content;
+
+    // Initialize slideshow
+    var lightbox = new SimpleLightbox('a', {});
   } else {
     alert("Wrong password!");
   }
